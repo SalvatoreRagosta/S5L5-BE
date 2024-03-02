@@ -1,0 +1,34 @@
+1 SP parametrica per visualizzare le contravvenzioni effettuate in un determinato anno:
+DELIMITER //
+
+CREATE PROCEDURE VisualizzaContravvenzioniPerAnno (IN anno_param INT)
+BEGIN
+    SELECT ID, DataViolazione, TipoViolenza, Importo, PuntiDecurtati
+    FROM Verbali
+    WHERE YEAR(DataViolazione) = anno_param;
+END//
+
+DELIMITER ;
+
+2 SP parametrica per visualizzare il totale dei punti decurtati in una determinata data:
+DELIMITER //
+
+CREATE PROCEDURE VisualizzaTotalePuntiPerData (IN data_param DATE)
+BEGIN
+    SELECT SUM(PuntiDecurtati) AS TotalePuntiDecurtati
+    FROM Verbali
+    WHERE DataViolazione = data_param;
+END//
+
+DELIMITER ;
+
+3 SP per eliminare un determinato verbale identificandolo con il proprio identificativo:
+DELIMITER //
+
+CREATE PROCEDURE EliminaVerbale (IN id_verbale INT)
+BEGIN
+    DELETE FROM Verbali
+    WHERE ID = id_verbale;
+END//
+
+DELIMITER ;
